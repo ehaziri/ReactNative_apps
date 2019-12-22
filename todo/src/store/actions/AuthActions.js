@@ -37,12 +37,11 @@ export const loginUser = ({ email, password }) => {
 };
 
 const loginUserSuccess = (dispatch, user) => {
+    console.log('Successfully logged in')
     dispatch({ 
         type: LOGIN_USER_SUCCESS, 
         payload: user 
     });
-    console.log('successsssssssssssssssss')
-
     Actions.main();
 };
 

@@ -12,7 +12,6 @@ const ListItem = props => {
     const onRowPress = () => {
         Actions.taskEdit({ task: props.task });
     }
-    console.log(props.task.status)
     return (
     <TouchableWithoutFeedback onPress={onRowPress}>
         <View>

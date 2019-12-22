@@ -9,3 +9,6 @@ export const TASK_CREATE = 'task_create';
 export const TASK_FETCH_SUCCESS = 'task_fetch_success';
 export const TASK_SAVE_SUCCESS = 'task_save_success';
 
+export const TASK_INITIAL = 'task_initial';
+
+

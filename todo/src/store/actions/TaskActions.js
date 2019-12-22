@@ -4,11 +4,13 @@ import {
     TASK_UPDATE,
     TASK_CREATE,
     TASK_FETCH_SUCCESS,
-    TASK_SAVE_SUCCESS
+    TASK_SAVE_SUCCESS,
+    TASK_INITIAL
 } from './types';
 
 export const taskUpdate = ({ prop, value }) => {
-    console.log('action task update ', prop, value)
+    console.log('Actions: Task Update ', prop, value)
+
     return {
         type: TASK_UPDATE,
         payload: { prop, value }
@@ -17,6 +19,7 @@ export const taskUpdate = ({ prop, value }) => {
 
 export const taskCreate = ({ name, status, duedate }) => {
     const { currentUser } = firebase.auth();
+    console.log('Actions: Task Create ', name, status, duedate)
 
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/tasks`)
@@ -30,6 +33,8 @@ export const taskCreate = ({ name, status, duedate }) => {
 
 export const taskFetch = () => {
     const { currentUser } = firebase.auth();
+    console.log('Actions: Task Fetch ')
+
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/tasks`)
             .on('value', snapshot => {
@@ -40,7 +45,8 @@ export const taskFetch = () => {
 
 export const taskSave = ({ name, status, duedate, uid }) => {
     const { currentUser } = firebase.auth();
-    console.log('nnna ', name)
+    console.log('Actions: Task Save ', name, status, duedate, uid)
+
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
             .set({ name, status, duedate })
@@ -53,11 +59,13 @@ export const taskSave = ({ name, status, duedate, uid }) => {
 
 export const taskDelete = ({ uid }) => {
     const { currentUser } = firebase.auth();
+    console.log('Actions: Task Delete ', uid)
 
-    return () => {
+    return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
             .remove()
             .then(() => {
+                dispatch({ type: TASK_INITIAL });
                 Actions.tasksList({ type: 'reset' });                
             });
     };
