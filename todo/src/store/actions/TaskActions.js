@@ -8,6 +8,7 @@ import {
 } from './types';
 
 export const taskUpdate = ({ prop, value }) => {
+    console.log('action task update ', prop, value)
     return {
         type: TASK_UPDATE,
         payload: { prop, value }
@@ -39,7 +40,7 @@ export const taskFetch = () => {
 
 export const taskSave = ({ name, status, duedate, uid }) => {
     const { currentUser } = firebase.auth();
-
+    console.log('nnna ', name)
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
             .set({ name, status, duedate })

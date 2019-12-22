@@ -4,6 +4,7 @@ import { LoginForm } from './components/Login';
 import TasksList from './components/Todo/TasksList';
 import TaskCreate from './components/Todo/TaskCreate';
 import TaskEdit from './components/Todo/TaskEdit';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const RouterComponent = () => {
     return (
@@ -19,7 +20,12 @@ const RouterComponent = () => {
                 </Scene>
                 <Scene key="main">
                     <Scene 
-                        rightTitle="Add"
+                        rightTitle={                
+                        <Icon 
+                            name="plussquare"
+                            color="green"
+                            size={25}
+                        />}
                         onRight={() => Actions.taskCreate()}
                         key="tasksList" 
                         title="Tasks" 

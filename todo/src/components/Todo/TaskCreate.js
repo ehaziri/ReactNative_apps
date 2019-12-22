@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button } from '../common';
-import { taskUpdate, taskCreate } from '../../actions';
+import { taskUpdate, taskCreate } from '../../store/actions';
 import TaskForm from './components/TaskForm';
 
 const TaskCreate = props => {
     const onButtonPress = () => {
         const { name, status, duedate } = props;
-        props.taskCreate({ name, status, duedate: duedate || 'Monday' });
+        props.taskCreate({ name, status: status || 'pending', duedate: duedate || 'Monday' });
     }
 
     return (
         <Card>
             <TaskForm {...props} />
             <CardSection>
-                <Button onPress={onButtonPress.bind(this)}>
+                <Button onPress={onButtonPress}>
                     Create
                 </Button>
             </CardSection>

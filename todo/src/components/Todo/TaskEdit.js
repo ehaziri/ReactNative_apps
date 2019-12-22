@@ -1,13 +1,14 @@
 import _ from 'lodash';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Communications from 'react-native-communications';
 import { Card, CardSection, Button, Confirm } from '../common';
 import TaskForm from './components/TaskForm';
-import { taskUpdate, taskSave, taskDelete } from '../../actions';
+import { taskUpdate, taskSave, taskDelete } from '../../store/actions';
 
 const TaskEdit = props => {
-    state = { showModal: false }
+
+    const [showModal, setShowModal] = useState(false)
+
     useEffect(() => {
         _.each(props.task, (value, prop) => {
             props.taskUpdate({ prop, value });
@@ -18,20 +19,15 @@ const TaskEdit = props => {
 
         props.taskSave({ name, status, duedate, uid: props.task.uid });
     }
-    const onTextPress = () => {
-        const { status, duedate } = props;
-        
-        Communications.text(status, `Your upcoming duedate is on ${duedate}`);
-    }
 
     const onAccept = () => {
         const { uid } = props.task;
         props.taskDelete({ uid });
-        setState({ showModal: false });
+        setShowModal(false);
     }
 
     const onDecline = () => {
-        setState({ showModal: false });
+        setShowModal(false);
     }
 
     return (
@@ -44,21 +40,15 @@ const TaskEdit = props => {
             </CardSection>
 
             <CardSection>
-                <Button onPress={onTextPress.bind(this)}>
-                    Text Schedule
-                </Button>
-            </CardSection>
-
-            <CardSection>
-                <Button onPress={() => setState({ showModal: !state.showModal })}>
+                <Button onPress={() => setShowModal(!showModal)} btnStyle={{ borderColor: 'red', borderWidth: 1.5 }} txtStyle={{ color: 'red' }} >
                     Delete Task
                 </Button>
             </CardSection>
 
             <Confirm
-                visible={state.showModal}
-                onAccept={onAccept.bind(this)}
-                onDecline={onDecline.bind(this)}
+                visible={showModal}
+                onAccept={onAccept}
+                onDecline={onDecline}
             >
                 Are you sure you want to delete this?
             </Confirm>

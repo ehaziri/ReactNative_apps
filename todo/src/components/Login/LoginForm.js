@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../../actions';
+import { emailChanged, passwordChanged, loginUser } from '../../store/actions';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
 
 const LoginForm = props => {
@@ -32,7 +32,7 @@ const LoginForm = props => {
             return <Spinner />;
         }
         return (
-            <Button onPress={onButtonPress}>
+            <Button onPress={onButtonPress} >
                 Login
             </Button>
         );
@@ -41,6 +41,7 @@ const LoginForm = props => {
         return (
             <Card>
                 <CardSection>
+
                     <Input 
                         label="Email"
                         placeholder="email@mail.com"

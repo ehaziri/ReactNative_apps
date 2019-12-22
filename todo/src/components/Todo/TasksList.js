@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { taskFetch } from '../../actions';
+import { taskFetch } from '../../store/actions';
 import ListItem from './components/ListItem';
 
 const TaskList = props => {
@@ -12,12 +12,12 @@ const TaskList = props => {
     const renderRow = (task) => (
         <ListItem task={task.item} />
     )
- 
     return (
         <FlatList 
             enableEmptySections
             data={props.tasks}
             renderItem={renderRow}
+            keyExtractor={item => item.uid}
         />
     );
 }

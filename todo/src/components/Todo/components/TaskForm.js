@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Picker, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { taskUpdate } from '../../../actions';
+import { taskUpdate } from '../../../store/actions';
 import { CardSection, Input } from '../../common';
 
 const TaskForm = props => {
@@ -10,7 +10,7 @@ const TaskForm = props => {
             <CardSection>
                 <Input 
                     label="Name"
-                    placeholder="Jane"
+                    placeholder="todo"
                     value={props.name}
                     onChangeText={
                         text => props.taskUpdate({ prop: 'name', value: text })
@@ -26,9 +26,9 @@ const TaskForm = props => {
                         text => props.taskUpdate({ prop: 'status', value: text })
                     }
                 >
-                    <Picker.Item label="done" value="done" />
+                    <Picker.Item label="pending" value="pending" />   
                     <Picker.Item label="in-progress" value="in-progress" />
-                    <Picker.Item label="pending" value="pending" />                      
+                    <Picker.Item label="done" value="done" />                  
                 </Picker> 
             </CardSection>
             <CardSection >
